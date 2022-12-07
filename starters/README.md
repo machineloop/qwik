@@ -8,35 +8,69 @@ All starters are based off of `starters/apps/base`, to include the `package.json
 
 Here are steps to try out the CLI in local environment.
 
-1. Build CLI:
+1. From root, build CLI:
 
    ```
-   # yarn build.cli
+   # npm build.cli
    ```
 
 1. Run CLI:
 
    ```
    # node ./packages/create-qwik/dist/create-qwik.cjs
-   💫 Let's create a Qwik project 💫
+   🐰 Let's create a Qwik app 🐇
 
-   ✔ Project name … todo-express
-   ✔ Select a starter › Todo
-   ✔ Select a server › Express
+   ✔ Where would you like to create your new project? … ./qwik-app
 
-   ⭐️ Success! Project saved in todo-express directory
+   ✔ Select a starter › Basic App (QwikCity)
 
-   📟 Next steps:
-   cd todo-express
-   npm install
-   npm start
+   ✔ Would you like to install npm dependencies? … yes
+
+   ✔ Installing npm dependencies...
+
+
+   🦄  Success!  Project created in qwik-app directory
+
+   🐰 Next steps:
+      cd qwik-app
+      npm start
+
+   🔌 Integrations? Add Netlify, Cloudflare, Tailwind...
+      npm run qwik add
    ```
 
 1. Change to generated location
    ```
-   cd todo-express
+   cd qwik-app
    npm install
    npm start
+   ```
+   
+### Testing new starters locally using npm-link:
+
+1. Starting at root of the project, change directory to local qwik package, then run `npm link`:
+
+   ```
+   cd packages/qwik
+   npm link
+   ```
+1. Generate a test project (ie.. qwik-app), either using regular CLI or following steps under [#Developer](README.md#developer) heading above.
+1. Change directory into new qwik project, then run `npm link qwik`:
+   ```
+   cd qwik-app
+   npm link qwik
+   ```
+1. Then run `npm install </path/to/packages/qwik>`, modify the PATH to match the relative location of qwik package on disk:
+   ```
+   npm install ../packages/qwik
+   ```
+1. Test your new starter adapter, you should see your new option when executing:
+   ```
+   npm run qwik add
+   ``` 
+1. When finished testing with linked qwik test build, remove the link using the following command:
+   ```
+   npm rm --global qwik
    ```
 
 ## Publishing `create-qwik` CLI Package
